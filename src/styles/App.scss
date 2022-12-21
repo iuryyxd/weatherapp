@@ -128,9 +128,12 @@ body {
         align-items: center;
         justify-content: center;
         flex-direction: column;
-
+        gap: 10px;
         margin-top: 60px;
 
+        svg {
+          color: #1bc1fb;
+        }
     }
 
 

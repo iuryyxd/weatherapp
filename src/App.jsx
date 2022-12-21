@@ -1,42 +1,49 @@
 import axios from "axios";
 import { useState } from "react";
-import { FiArrowLeft, FiMapPin, FiDroplet } from 'react-icons/fi'
+import { FiArrowLeft, FiMapPin, FiDroplet } from "react-icons/fi";
 import "./styles/App.scss";
 
 function App() {
   const [userLocal, setUserLocal] = useState();
 
   async function handleGetWeather() {
-  
-    const url = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${userLocal}&aqi=no&lang=pt`;
+    const url = `https://api.weatherapi.com/v1/current.json?key=${
+      import.meta.env.VITE_WEATHER_API_KEY
+    }&q=${userLocal}&aqi=no&lang=pt`;
     await axios
       .get(url)
       .then(async (res) => {
         
-        toggleScreens()
+        const main = document.querySelector(".page2__main");
+        const mainImg = main.querySelector(".main__img")
+        const mainH1 = main.querySelector(".main__temperature")
+        const mainWeather = main.querySelector(".main__weather")
+        const mainLocal = main.querySelector(".main__local span")
+        const mainHumidity = main.querySelector(".main__humidity span")
+        
+        mainImg.removeAttribute("src")
+        mainImg.setAttribute("src", `https:${res.data.current.condition.icon}`)
 
-        const input = document.querySelector("input")
-        input.value = ""
+        mainH1.innerHTML = `${res.data.current.temp_c}ºC`
+        mainWeather.innerHTML = res.data.current.condition.text
+        mainLocal.innerHTML = `${res.data.location.name}, ${res.data.location.country}`
+        mainHumidity.innerHTML = `${res.data.current.humidity}`     
 
-        const main = document.querySelector(".page2__main")
+        toggleScreens();
 
-        main.innerHTML = `
-        <img src='https:${res.data.current.condition.icon}' alt="ícone do clima"/>
-        <h1>${res.data.current.temp_c}ºC</h1>
-        <span>${res.data.current.condition.text}</span>
-        <span><FiMapPin /> ${res.data.location.name}, ${res.data.location.country}</span>
-        <span><FiDroplet /> Humidade: ${res.data.current.humidity}%</span>
-        `
+        const input = document.querySelector("input");
+        input.value = "";
+
       })
       .catch((e) => alert("Não foi possível encontrar o clima desse local."));
   }
 
   function toggleScreens() {
-    const page1 = document.querySelector(".wrapper__page1")
-    const page2 = document.querySelector(".wrapper__page2")
+    const page1 = document.querySelector(".wrapper__page1");
+    const page2 = document.querySelector(".wrapper__page2");
 
-    page1?.classList.toggle("off")
-    page2?.classList.toggle("off")
+    page1?.classList.toggle("off");
+    page2?.classList.toggle("off");
   }
 
   return (
@@ -63,11 +70,15 @@ function App() {
 
       <div className="wrapper__page2 off">
         <header className="page2__header">
-          <FiArrowLeft onClick={toggleScreens}/>
+          <FiArrowLeft onClick={toggleScreens} />
           <span onClick={toggleScreens}>Voltar para o início</span>
         </header>
         <main className="page2__main">
-
+          <img src='' alt="ícone do clima" className="main__img"/>
+          <h1 className="main__temperature">20ºC</h1>
+          <span className="main__weather">Nublado</span>
+          <span className="main__local"><FiMapPin /> <span>São Paulo, Brazil</span></span>
+          <span className="main__humidity"><FiDroplet /> Humidade: <span>50</span>%</span>
         </main>
       </div>
     </div>
