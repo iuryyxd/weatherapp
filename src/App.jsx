@@ -34,6 +34,8 @@ function App() {
         const input = document.querySelector("input");
         input.value = "";
 
+        setUserLocal("")
+
       })
       .catch((e) => alert("Não foi possível encontrar o clima desse local."));
   }
@@ -78,7 +80,7 @@ function App() {
           <h1 className="main__temperature">20ºC</h1>
           <span className="main__weather">Nublado</span>
           <span className="main__local"><FiMapPin /> <span>São Paulo, Brazil</span></span>
-          <span className="main__humidity"><FiDroplet /> Humidade: <span>50</span>%</span>
+          <span className="main__humidity"><FiDroplet /> Umidade: <span>50</span>%</span>
         </main>
       </div>
     </div>
