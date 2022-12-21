@@ -7,9 +7,7 @@ function App() {
   const [userLocal, setUserLocal] = useState();
 
   async function handleGetWeather() {
-    const url = `https://api.weatherapi.com/v1/current.json?key=${
-      import.meta.env.VITE_WEATHER_API_KEY
-    }&q=${userLocal}&aqi=no&lang=pt`;
+    const url = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${userLocal}&aqi=no&lang=pt`;
     await axios
       .get(url)
       .then(async (res) => {
