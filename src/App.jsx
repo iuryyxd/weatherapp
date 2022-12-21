@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <div className="wrapper__page1 off">
+      <div className="wrapper__page1">
         <header className="page1__header">
           <img
             src="https://i.pinimg.com/originals/06/c4/f7/06c4f70ec5931e2342e703e8a3f0a253.png"
@@ -61,7 +61,7 @@ function App() {
         </form>
       </div>
 
-      <div className="wrapper__page2">
+      <div className="wrapper__page2 off">
         <header className="page2__header">
           <FiArrowLeft onClick={toggleScreens}/>
           <span onClick={toggleScreens}>Voltar para o início</span>
