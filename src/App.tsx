@@ -1,10 +1,13 @@
+import React from 'react';
 import axios from "axios";
 import { useState } from "react";
 import { FiArrowLeft, FiMapPin, FiDroplet } from "react-icons/fi";
 import "./styles/App.scss";
 
+type UserLocal = string;
+
 function App() {
-  const [userLocal, setUserLocal] = useState();
+  const [userLocal, setUserLocal] = useState<UserLocal>();
 
   async function handleGetWeather() {
     const url = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${userLocal}&aqi=no&lang=pt`;
@@ -13,27 +16,26 @@ function App() {
       .then(async (res) => {
         
         const main = document.querySelector(".page2__main");
-        const mainImg = main.querySelector(".main__img")
-        const mainH1 = main.querySelector(".main__temperature")
-        const mainWeather = main.querySelector(".main__weather")
-        const mainLocal = main.querySelector(".main__local span")
-        const mainHumidity = main.querySelector(".main__humidity span")
+        const mainImg = main?.querySelector(".main__img")
+        const mainH1 = main?.querySelector(".main__temperature")
+        const mainWeather = main?.querySelector(".main__weather")
+        const mainLocal = main?.querySelector(".main__local span")
+        const mainHumidity = main?.querySelector(".main__humidity span")
         
-        mainImg.removeAttribute("src")
-        mainImg.setAttribute("src", `https:${res.data.current.condition.icon}`)
+        mainImg?.removeAttribute("src")
+        mainImg?.setAttribute("src", `https:${res.data.current.condition.icon}`)
 
-        mainH1.innerHTML = `${res.data.current.temp_c}ºC`
-        mainWeather.innerHTML = res.data.current.condition.text
-        mainLocal.innerHTML = `${res.data.location.name}, ${res.data.location.country}`
-        mainHumidity.innerHTML = `${res.data.current.humidity}`     
+        if(mainH1) mainH1.innerHTML = `${res.data.current.temp_c}ºC`
+        if(mainWeather) mainWeather.innerHTML = res.data.current.condition.text
+        if(mainLocal) mainLocal.innerHTML = `${res.data.location.name}, ${res.data.location.country}`
+        if(mainHumidity) mainHumidity.innerHTML = `${res.data.current.humidity}`     
 
         toggleScreens();
 
         const input = document.querySelector("input");
-        input.value = "";
+        if(input) input.value = "";
 
         setUserLocal("")
-
       })
       .catch((e) => alert("Não foi possível encontrar o clima desse local."));
   }
