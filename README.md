@@ -1,6 +1,6 @@
 # Weather App
 
-> Projeto criado para aprimorar aprendizado no desenvolvimento web.
+> Projeto criado para aprimorar conhecimento no desenvolvimento web.
 
 ## Demonstração
 
